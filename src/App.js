@@ -1,25 +1,30 @@
-import logo from './logo.svg';
-import './App.css';
+import React  from 'react'
+import RoboCard from './Components/RoboCard/RoboCard'
+import {connect} from 'react-redux'
+import {HandelChange} from './Components/actions'
+import './App.css'
 
-function App() {
+  
+function App(props) {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+          <h1> HELLO FRIENDS</h1>
+          <input type="search" placeholder="Search For Robots By Name ..." onChange={(e) => props.HandelChange(e)}/>  
+          <div className='cardList' >
+            <RoboCard />
+          </div>
     </div>
   );
 }
+const mapStateToProps =(state) =>{
+  return{
+    search:state.searchChange.search
+  }
+}
+const  mapDispatchToProps = (dispatch) =>{
+    return{
+      HandelChange: (e)=> dispatch(HandelChange(e)) 
+    }
+  }
 
-export default App;
+export default connect(mapStateToProps,mapDispatchToProps)(App);
